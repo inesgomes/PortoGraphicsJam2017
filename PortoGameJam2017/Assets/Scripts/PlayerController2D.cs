@@ -36,6 +36,10 @@ public class PlayerController2D : MonoBehaviour
 	public Image image;
 	public bool hit;
 
+	//knockback
+	public float knock_back_time;
+	public float knock_back_delay;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -56,15 +60,24 @@ public class PlayerController2D : MonoBehaviour
 		trigger_time = -1;
 		trigger_delay = 0.25f;
 
+		knock_back_delay = .3f;
+		knock_back_time = .3f;
+
 		hit = false;
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		if(manageKnockback()){
+			return;
+		}
+
+		manageHealth ();
+
 		manageSpeed ();
 		manageAttack ();
-		manageHealth ();
+
 	}
 
 	// Handler speed
@@ -75,6 +88,25 @@ public class PlayerController2D : MonoBehaviour
 
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
 		anim.SetFloat ("Velocity", Rb2D.velocity.magnitude);
+	}
+
+	bool manageKnockback(){
+
+		if (!hit) {
+			return false;
+		}
+
+		knock_back_time -= Time.deltaTime;
+
+		Debug.Log (knock_back_time);
+
+		if(knock_back_time <= 0){
+			knock_back_time = knock_back_delay;
+			hit = false;
+			return false;
+		}
+
+		return true;
 	}
 
 	// Handler attack
@@ -183,4 +215,22 @@ public class PlayerController2D : MonoBehaviour
 			return "Error Parsing Direction";
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D col){
+
+		if (col.gameObject.tag == "Enemy") {
+			hit = true;
+			
+			Debug.Log ("Atacado");
+
+			//Calcular vetor oposto à colisao para fazer knockback
+			Vector2 normal = ( gameObject.transform.position - col.gameObject.transform.position).normalized;
+
+			Rb2D.AddForce (normal * 700);
+		}
+	
+	}
+
+
+
 }
