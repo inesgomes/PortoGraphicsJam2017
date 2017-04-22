@@ -36,10 +36,17 @@ public class EnemyController2D : MonoBehaviour
 			Rb2D.velocity = Vector2.zero;
 	}
 
-	void OnCollisionEnter(Collision other){
+	void OnTriggerEnter2D(Collider2D other){
 
-		Debug.Log ("fui atingido por");
+		if(other.gameObject.tag == "Player"){
+			WasAttackedByPlayer ();
+		}
 
+	}
+
+	void WasAttackedByPlayer(){
+		Debug.Log (gameObject.name + " foi atingido por jogador");
+		Destroy (gameObject);
 	}
 
 

@@ -20,6 +20,8 @@ public class PlayerController2D : MonoBehaviour
 	private float next_attack_time;
 	private int attack_cooldown;
 
+	private bool attacked;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -41,6 +43,9 @@ public class PlayerController2D : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+
+		
+
 		x_axis = Input.GetAxisRaw ("Horizontal");
 		y_axis = Input.GetAxisRaw ("Vertical");
 
@@ -48,6 +53,13 @@ public class PlayerController2D : MonoBehaviour
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
 
 		//atacar
+
+		if (attacked) {
+			foreach (BoxCollider2D bc in attack_vector) {
+				bc.enabled = false;
+			}
+			attacked = false;
+		}
 
 		if (Input.GetKey (KeyCode.Space)) {
 			Attack ();
@@ -116,7 +128,7 @@ public class PlayerController2D : MonoBehaviour
 
 			Debug.Log("Atacou " + getDirAsString(attackDirection));
 
-			attack_vector [attackDirection].enabled = false;
+			attacked = true;
 
 			next_attack_time = Time.time + attack_cooldown;
 
