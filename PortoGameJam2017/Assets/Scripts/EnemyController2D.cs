@@ -44,10 +44,8 @@ public class EnemyController2D : MonoBehaviour
 
 	}
 
-	void WasAttackedByPlayer(){
-		Debug.Log (gameObject.name + " foi atingido por jogador");
+	void WasAttackedByPlayer()
+	{
 		Destroy (gameObject);
 	}
-
-
 }
