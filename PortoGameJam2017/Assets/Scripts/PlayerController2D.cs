@@ -12,11 +12,30 @@ public class PlayerController2D : MonoBehaviour
 
 	public float velocity;
 
+	public BoxCollider2D right_attack;
+	public BoxCollider2D left_attack;
+	public BoxCollider2D front_attack;
+	public BoxCollider2D back_attack;
+	private BoxCollider2D[] attack_vector;
+	private float next_attack_time;
+	private int attack_cooldown;
+
 	// Use this for initialization
 	void Start ()
 	{
-		dir = 0;
+		dir = -1;
 		Rb2D = GetComponent<Rigidbody2D> ();
+
+		attack_vector = new BoxCollider2D[4];
+
+		next_attack_time = -1;
+		attack_cooldown = 1;
+
+		attack_vector [0] = right_attack;
+		attack_vector [1] = left_attack;
+		attack_vector [2] = front_attack;
+		attack_vector [3] = back_attack;
+ 
 	}
 	
 	// Update is called once per frame
@@ -25,57 +44,89 @@ public class PlayerController2D : MonoBehaviour
 		x_axis = Input.GetAxisRaw ("Horizontal");
 		y_axis = Input.GetAxisRaw ("Vertical");
 
+
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
+
+		//atacar
+
+		if (Input.GetKey (KeyCode.Space)) {
+			Attack ();
+		}
+
 
 		updateDir ();
 	}
 
-	// Return the direction (1 direita, 2 esquerda, 3 cima, 4 baixo)
+	// Return the direction (0 direita, 1 esquerda, 2 cima, 3 baixo)
 	void updateDir()
 	{
 		if (x_axis == 1)
 		{
-			dir = 1;
+			dir = 0;
 			return;
 		}
 
 		if (x_axis == -1)
 		{
-			dir = 2;
+			dir = 1;
 			return;
 		}
 
 		if (y_axis == 1)
 		{
-			dir = 3;
+			dir = 2;
 			return;
 		}
 
 
 		if (y_axis == -1)
 		{
-			dir = 4;
+			dir = 3;
 			return;
 		}
 	}
 
 	// Parses dir
-	string getDirAsString()
+	string getDirAsString(int direction)
 	{
-		switch (dir)
+		switch (direction)
 		{
-		case 0:
+		case -1:
 			return "Parado";
-		case 1:
+		case 0:
 			return "Direita";
-		case 2:
+		case 1:
 			return "Esquerda";
-		case 3:
+		case 2:
 			return "Cima";
-		case 4:
+		case 3:
 			return "Baixo";
 		default:
 			return "Error Parsing Direction";
 		}
 	}
+
+	void Attack(){
+			
+		int attackDirection = dir;
+
+		if(next_attack_time <= Time.time){
+
+			attack_vector [attackDirection].enabled = true;
+
+			Debug.Log("Atacou " + getDirAsString(attackDirection));
+
+			attack_vector [attackDirection].enabled = false;
+
+			next_attack_time = Time.time + attack_cooldown;
+
+		}
+
+	}
+
+
+
+
+
+
 }
