@@ -10,10 +10,26 @@ public class PlayerController2D : MonoBehaviour
 
 	public float velocity;
 
+	public BoxCollider2D right_attack;
+	public BoxCollider2D left_attack;
+	public BoxCollider2D front_attack;
+	public BoxCollider2D back_attack;
+
+	private BoxCollider2D[] attack_vector;
+
+
 	// Use this for initialization
 	void Start ()
 	{
 		Rb2D = GetComponent<Rigidbody2D> ();
+
+		attack_vector = new BoxCollider2D[4];
+
+		attack_vector [0] = right_attack;
+		attack_vector [1] = left_attack;
+		attack_vector [2] = right_attack;
+		attack_vector [3] = right_attack;
+
 	}
 	
 	// Update is called once per frame
@@ -24,4 +40,7 @@ public class PlayerController2D : MonoBehaviour
 
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
 	}
+
+
+
 }
