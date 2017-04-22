@@ -18,10 +18,15 @@ public class PlayerController2D : MonoBehaviour
 	public BoxCollider2D front_attack;
 	public BoxCollider2D back_attack;
 	private BoxCollider2D[] attack_vector;
-	private float next_attack_time;
-	public float attack_cooldown;
 
+	// Attack vars
 	private bool attacking;
+
+	private float attack_cooldown;
+	private float next_attack_time;
+
+	private float trigger_delay;
+	private float trigger_time;
 
 	// Use this for initialization
 	void Start ()
@@ -32,13 +37,16 @@ public class PlayerController2D : MonoBehaviour
 
 		attack_vector = new BoxCollider2D[4];
 
-		next_attack_time = -1;
-
 		attack_vector [0] = right_attack;
 		attack_vector [1] = left_attack;
 		attack_vector [2] = front_attack;
 		attack_vector [3] = back_attack;
  
+		next_attack_time = -1;
+		attack_cooldown = 0.5f;
+
+		trigger_time = -1;
+		trigger_delay = 0.25f;
 	}
 	
 	// Update is called once per frame
@@ -47,7 +55,6 @@ public class PlayerController2D : MonoBehaviour
 		x_axis = Input.GetAxisRaw ("Horizontal");
 		y_axis = Input.GetAxisRaw ("Vertical");
 
-
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
 		anim.SetFloat ("Velocity", Rb2D.velocity.magnitude);
 
@@ -55,30 +62,44 @@ public class PlayerController2D : MonoBehaviour
 
 		if (attacking)
 		{
-			
-		}
-		else
-		{
-			if (Input.GetKeyDown (KeyCode.Space))
+			Debug.Log ("Attacking");
+
+			next_attack_time = Mathf.Max (0, next_attack_time - Time.deltaTime);
+			trigger_time = Mathf.Max (0, trigger_time - Time.deltaTime);
+
+			if (trigger_time == 0)
 			{
-				attacking = true;
-				anim.SetBool ("Attack", true);
-				Attack ();
+				Debug.Log ("Enabled Trigger");
+				attack_vector [dir].enabled = true;
 			}
-			else
+
+			if (next_attack_time == 0)
 			{
+				attacking = false;
+				anim.SetBool ("Attack", false);
+
+				Debug.Log ("Disabled all triggers");
 				foreach (BoxCollider2D bc in attack_vector)
 				{
 					bc.enabled = false;
 				}
 				attacking = false;
-				anim.SetBool ("Attack", false);
 			}
 		}
+		else
+		{
+			updateDir ();
+			anim.SetInteger ("Dir", dir);
 
+			if (Input.GetKeyDown (KeyCode.Space))
+			{
+				attacking = true;
+				anim.SetBool ("Attack", true);
 
-		updateDir ();
-		anim.SetInteger ("Dir", dir);
+				next_attack_time = attack_cooldown;
+				trigger_time = trigger_delay;
+			}
+		}
 	}
 
 	// Return the direction (0 direita, 1 esquerda, 2 cima, 3 baixo)
@@ -130,6 +151,7 @@ public class PlayerController2D : MonoBehaviour
 		}
 	}
 
+	/*
 	void Attack()
 	{		
 		int attackDirection = dir;
@@ -148,12 +170,7 @@ public class PlayerController2D : MonoBehaviour
 			anim.SetBool ("Attack", true);
 
 			next_attack_time = Time.time + attack_cooldown;
-
-			IEnumerator coroutineAttack = EnableAttack (0.1f, attackDirection);
-			StartCoroutine (coroutineAttack);
-
-			IEnumerator coroutineDisable = EnableAttack (0.15f, attackDirection);
-			StartCoroutine (coroutineDisable);
 		}
 	}
+	*/
 }
