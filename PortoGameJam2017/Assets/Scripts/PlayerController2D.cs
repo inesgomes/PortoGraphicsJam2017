@@ -9,7 +9,7 @@ public class PlayerController2D : MonoBehaviour
 	private float x_axis;
 	private float y_axis;
 
-	private int dir; // default 0
+	private int dir;	// default 0
 
 	public float velocity;
 
@@ -52,14 +52,23 @@ public class PlayerController2D : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+		manageSpeed ();
+		manageAttack ();
+	}
+
+	// Handler speed
+	void manageSpeed()
+	{
 		x_axis = Input.GetAxisRaw ("Horizontal");
 		y_axis = Input.GetAxisRaw ("Vertical");
 
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
 		anim.SetFloat ("Velocity", Rb2D.velocity.magnitude);
+	}
 
-		// Attack
-
+	// Handler attack
+	void manageAttack()
+	{
 		if (attacking)
 		{
 			Debug.Log ("Attacking");
@@ -150,27 +159,4 @@ public class PlayerController2D : MonoBehaviour
 			return "Error Parsing Direction";
 		}
 	}
-
-	/*
-	void Attack()
-	{		
-		int attackDirection = dir;
-
-		if (attackDirection == -1)
-		{
-			return;
-		}
-
-		if(next_attack_time <= Time.time)
-		{
-			Debug.Log("Atacou " + getDirAsString(attackDirection));
-
-			attacked = true;
-
-			anim.SetBool ("Attack", true);
-
-			next_attack_time = Time.time + attack_cooldown;
-		}
-	}
-	*/
 }
