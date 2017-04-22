@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController2D : MonoBehaviour
 {
 	private Rigidbody2D Rb2D;
+	private Animator anim;
 	private float x_axis;
 	private float y_axis;
 
@@ -27,6 +28,7 @@ public class PlayerController2D : MonoBehaviour
 	{
 		dir = -1;
 		Rb2D = GetComponent<Rigidbody2D> ();
+		anim = GetComponent<Animator> (); 
 
 		attack_vector = new BoxCollider2D[4];
 
@@ -43,30 +45,33 @@ public class PlayerController2D : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
-
-		
-
 		x_axis = Input.GetAxisRaw ("Horizontal");
 		y_axis = Input.GetAxisRaw ("Vertical");
 
 
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
+		anim.SetFloat ("Velocity", Rb2D.velocity.magnitude);
 
 		//atacar
 
-		if (attacked) {
-			foreach (BoxCollider2D bc in attack_vector) {
+		if (attacked)
+		{
+			foreach (BoxCollider2D bc in attack_vector)
+			{
 				bc.enabled = false;
 			}
 			attacked = false;
+			anim.SetBool ("Attack", false);
 		}
 
-		if (Input.GetKey (KeyCode.Space)) {
+		if (Input.GetKey (KeyCode.Space))
+		{
 			Attack ();
 		}
 
 
 		updateDir ();
+		anim.SetInteger ("Dir", dir);
 	}
 
 	// Return the direction (0 direita, 1 esquerda, 2 cima, 3 baixo)
@@ -118,9 +123,14 @@ public class PlayerController2D : MonoBehaviour
 		}
 	}
 
-	void Attack(){
+	void Attack()
+	{
 			
 		int attackDirection = dir;
+
+		if (attackDirection == -1) {
+			return;
+		}
 
 		if(next_attack_time <= Time.time){
 
@@ -129,6 +139,7 @@ public class PlayerController2D : MonoBehaviour
 			Debug.Log("Atacou " + getDirAsString(attackDirection));
 
 			attacked = true;
+			anim.SetBool ("Attack", true);
 
 			next_attack_time = Time.time + attack_cooldown;
 
