@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.UI;
+
 public class PlayerController2D : MonoBehaviour
 {
 	private Rigidbody2D Rb2D;
@@ -28,6 +30,12 @@ public class PlayerController2D : MonoBehaviour
 	private float trigger_delay;
 	private float trigger_time;
 
+	// Health
+	public int currHP;
+	public Sprite[] sprites;
+	public Image image;
+	public bool hit;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -47,6 +55,8 @@ public class PlayerController2D : MonoBehaviour
 
 		trigger_time = -1;
 		trigger_delay = 0.25f;
+
+		hit = false;
 	}
 	
 	// Update is called once per frame
@@ -54,6 +64,7 @@ public class PlayerController2D : MonoBehaviour
 	{
 		manageSpeed ();
 		manageAttack ();
+		manageHealth ();
 	}
 
 	// Handler speed
@@ -71,14 +82,11 @@ public class PlayerController2D : MonoBehaviour
 	{
 		if (attacking)
 		{
-			Debug.Log ("Attacking");
-
 			next_attack_time = Mathf.Max (0, next_attack_time - Time.deltaTime);
 			trigger_time = Mathf.Max (0, trigger_time - Time.deltaTime);
 
 			if (trigger_time == 0)
 			{
-				Debug.Log ("Enabled Trigger");
 				attack_vector [dir].enabled = true;
 			}
 
@@ -87,7 +95,6 @@ public class PlayerController2D : MonoBehaviour
 				attacking = false;
 				anim.SetBool ("Attack", false);
 
-				Debug.Log ("Disabled all triggers");
 				foreach (BoxCollider2D bc in attack_vector)
 				{
 					bc.enabled = false;
@@ -111,6 +118,23 @@ public class PlayerController2D : MonoBehaviour
 		}
 	}
 
+	// Handler health
+	void manageHealth()
+	{
+		image.sprite = sprites [currHP];
+
+		if(hit && currHP > 0)
+		{
+			hit = false;
+			currHP--;
+
+			if (currHP == 0)
+			{
+				Debug.Log ("I DIEDEDED");
+			}
+		}
+	}
+		
 	// Return the direction (0 direita, 1 esquerda, 2 cima, 3 baixo)
 	void updateDir()
 	{
