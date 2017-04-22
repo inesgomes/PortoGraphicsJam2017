@@ -1,16 +1,13 @@
 fileFormatVersion: 2
-guid: dc2281ffdf090b84d8badf3b0bff0081
-timeCreated: 1492871465
+guid: 36b4d9634b2935b4599b66e2874db41a
+timeCreated: 1492864479
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: spr_player_attack_left_strip7_0
-    21300002: spr_player_attack_left_strip7_1
-    21300004: spr_player_attack_left_strip7_2
-    21300006: spr_player_attack_left_strip7_3
-    21300008: spr_player_attack_left_strip7_4
-    21300010: spr_player_attack_left_strip7_5
-    21300012: spr_player_attack_left_strip7_6
+    21300000: player_idle_0
+    21300002: player_idle_1
+    21300004: player_idle_2
+    21300006: player_idle_3
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -60,7 +57,7 @@ TextureImporter:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -68,15 +65,7 @@ TextureImporter:
   - buildTarget: Standalone
     maxTextureSize: 2048
     textureFormat: -1
-    textureCompression: 2
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-  - buildTarget: Android
-    maxTextureSize: 2048
-    textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -85,93 +74,54 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_player_attack_left_strip7_0
+      name: player_idle_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 35
+        width: 14
         height: 21
-      alignment: 9
-      pivot: {x: 0.8, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: spr_player_attack_left_strip7_1
+      name: player_idle_1
       rect:
         serializedVersion: 2
-        x: 35
+        x: 14
         y: 0
-        width: 35
+        width: 14
         height: 21
-      alignment: 9
-      pivot: {x: 0.8, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: spr_player_attack_left_strip7_2
+      name: player_idle_2
       rect:
         serializedVersion: 2
-        x: 70
+        x: 28
         y: 0
-        width: 35
+        width: 14
         height: 21
-      alignment: 9
-      pivot: {x: 0.8, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: spr_player_attack_left_strip7_3
+      name: player_idle_3
       rect:
         serializedVersion: 2
-        x: 105
+        x: 42
         y: 0
-        width: 35
+        width: 14
         height: 21
-      alignment: 9
-      pivot: {x: 0.8, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: spr_player_attack_left_strip7_4
-      rect:
-        serializedVersion: 2
-        x: 140
-        y: 0
-        width: 35
-        height: 21
-      alignment: 9
-      pivot: {x: 0.8, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: spr_player_attack_left_strip7_5
-      rect:
-        serializedVersion: 2
-        x: 175
-        y: 0
-        width: 35
-        height: 21
-      alignment: 9
-      pivot: {x: 0.8, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: spr_player_attack_left_strip7_6
-      rect:
-        serializedVersion: 2
-        x: 210
-        y: 0
-        width: 35
-        height: 21
-      alignment: 9
-      pivot: {x: 0.8, y: 0.5}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
