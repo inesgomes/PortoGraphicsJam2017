@@ -19,9 +19,9 @@ public class PlayerController2D : MonoBehaviour
 	public BoxCollider2D back_attack;
 	private BoxCollider2D[] attack_vector;
 	private float next_attack_time;
-	private int attack_cooldown;
+	public float attack_cooldown;
 
-	private bool attacked;
+	private bool attacking;
 
 	// Use this for initialization
 	void Start ()
@@ -33,7 +33,6 @@ public class PlayerController2D : MonoBehaviour
 		attack_vector = new BoxCollider2D[4];
 
 		next_attack_time = -1;
-		attack_cooldown = 1;
 
 		attack_vector [0] = right_attack;
 		attack_vector [1] = left_attack;
@@ -52,21 +51,29 @@ public class PlayerController2D : MonoBehaviour
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
 		anim.SetFloat ("Velocity", Rb2D.velocity.magnitude);
 
-		//atacar
+		// Attack
 
-		if (attacked)
+		if (attacking)
 		{
-			foreach (BoxCollider2D bc in attack_vector)
-			{
-				bc.enabled = false;
-			}
-			attacked = false;
-			anim.SetBool ("Attack", false);
+			
 		}
-
-		if (Input.GetKey (KeyCode.Space))
+		else
 		{
-			Attack ();
+			if (Input.GetKeyDown (KeyCode.Space))
+			{
+				attacking = true;
+				anim.SetBool ("Attack", true);
+				Attack ();
+			}
+			else
+			{
+				foreach (BoxCollider2D bc in attack_vector)
+				{
+					bc.enabled = false;
+				}
+				attacking = false;
+				anim.SetBool ("Attack", false);
+			}
 		}
 
 
@@ -124,32 +131,29 @@ public class PlayerController2D : MonoBehaviour
 	}
 
 	void Attack()
-	{
-			
+	{		
 		int attackDirection = dir;
 
-		if (attackDirection == -1) {
+		if (attackDirection == -1)
+		{
 			return;
 		}
 
-		if(next_attack_time <= Time.time){
-
-			attack_vector [attackDirection].enabled = true;
-
+		if(next_attack_time <= Time.time)
+		{
 			Debug.Log("Atacou " + getDirAsString(attackDirection));
 
 			attacked = true;
+
 			anim.SetBool ("Attack", true);
 
 			next_attack_time = Time.time + attack_cooldown;
 
+			IEnumerator coroutineAttack = EnableAttack (0.1f, attackDirection);
+			StartCoroutine (coroutineAttack);
+
+			IEnumerator coroutineDisable = EnableAttack (0.15f, attackDirection);
+			StartCoroutine (coroutineDisable);
 		}
-
 	}
-
-
-
-
-
-
 }
