@@ -112,28 +112,26 @@ public class PlayerController2D : MonoBehaviour
 		knock_back_time -= Time.deltaTime;
 
 
-		Debug.Log (knock_back_time);
+
+
+
 
 		if(knock_back_time <= 0){
 
-			if(hit && currHP > 0)
+			if(currHP > 0)
 			{
 				hit = false;
 				currHP--;
+				image.sprite = sprites [currHP];
 
 				if (currHP == 0)
 				{
 					Debug.Log ("I DIEDEDED");
 				}
 			}
-			
+
 			knock_back_time = knock_back_delay;
 			hit = false;
-
-			image.sprite = sprites [currHP];
-
-
-
 			return false;
 		}
 
