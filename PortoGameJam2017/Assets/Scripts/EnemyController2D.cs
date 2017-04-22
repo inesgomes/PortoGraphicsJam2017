@@ -36,4 +36,11 @@ public class EnemyController2D : MonoBehaviour
 			Rb2D.velocity = Vector2.zero;
 	}
 
+	void OnCollisionEnter(Collision other){
+
+		Debug.Log ("fui atingido por");
+
+	}
+
+
 }
