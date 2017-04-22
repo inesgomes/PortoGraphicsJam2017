@@ -128,6 +128,10 @@ public class PlayerController2D : MonoBehaviour
 			
 		int attackDirection = dir;
 
+		if (attackDirection == -1) {
+			return;
+		}
+
 		if(next_attack_time <= Time.time){
 
 			attack_vector [attackDirection].enabled = true;
