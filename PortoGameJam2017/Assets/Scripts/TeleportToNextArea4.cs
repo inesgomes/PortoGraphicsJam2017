@@ -35,6 +35,7 @@ public class TeleportToNextArea4 : MonoBehaviour {
 			col.gameObject.transform.position = nextSpawnPoint;
 
 			audioManager.playPortalMusic();
+			audioManager.playBossMusic ();
 		}
 
 

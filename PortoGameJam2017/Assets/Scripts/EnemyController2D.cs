@@ -30,6 +30,8 @@ public class EnemyController2D : MonoBehaviour
 	public float velocity;
 	public float minDist;
 
+	int loboLife = 3;
+
 	public DialogueScriptManager dsm;
 
 	public Animator animator;
@@ -116,9 +118,6 @@ public class EnemyController2D : MonoBehaviour
 		if(other.gameObject.tag == "PlayerAttack"){
 			WasAttackedByPlayer ();
 
-			if(gameObject.tag =="lobo"){
-				script.endGame();
-			}
 		}
 		else if (other.gameObject.tag == "Player")
 			audioManager.playMissPunchMusic ();
@@ -127,7 +126,20 @@ public class EnemyController2D : MonoBehaviour
 
 	void WasAttackedByPlayer()
 	{
+		if (gameObject.tag == "lobo") {
+			loboLife--;
+
+			if (loboLife == 0) {
+				script.endGame ();
+				Destroy (gameObject);
+				return;
+			}
+		} else {
+			
+			Destroy (gameObject);
+
+		}
 		audioManager.playMonsterDieMusic ();
-		Destroy (gameObject);
+
 	}
 }
