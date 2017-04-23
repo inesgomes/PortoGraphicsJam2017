@@ -30,7 +30,11 @@ public class EnemyController2D : MonoBehaviour
 	public float velocity;
 	public float minDist;
 
+	public DialogueScriptManager dsm;
+
 	public Animator animator;
+
+	public PlayerController2D script;
 
 	SpriteRenderer renderer;
 
@@ -87,7 +91,7 @@ public class EnemyController2D : MonoBehaviour
 		if(gameObject.tag == "lobo"){
 			animator.SetFloat ("velocity", Rb2D.velocity.magnitude);
 
-			Debug.Log (Mathf.Sqrt(Mathf.Pow(Rb2D.velocity.x, 2) + Mathf.Pow(Rb2D.velocity.y, 2)));
+
 			animator.SetFloat ("x", Rb2D.velocity.x);
 			animator.SetFloat ("y", Rb2D.velocity.y);
 			
@@ -111,6 +115,10 @@ public class EnemyController2D : MonoBehaviour
 
 		if(other.gameObject.tag == "PlayerAttack"){
 			WasAttackedByPlayer ();
+
+			if(gameObject.tag =="lobo"){
+				script.endGame();
+			}
 		}
 		else if (other.gameObject.tag == "Player")
 			audioManager.playMissPunchMusic ();

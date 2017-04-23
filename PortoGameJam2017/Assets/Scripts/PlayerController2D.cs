@@ -39,6 +39,8 @@ public class PlayerController2D : MonoBehaviour
 	public Image image1;
 	public Image image2;
 
+	private DialogueScriptManager dialogueManager;
+
 	public bool hit;
 
 	//knockback
@@ -56,6 +58,7 @@ public class PlayerController2D : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		dialogueManager = FindObjectOfType<DialogueScriptManager> ();
 
 		sprites = new Sprite[3];
 		currentLevels = new bool[]
@@ -272,22 +275,51 @@ public class PlayerController2D : MonoBehaviour
 		}
 	}
 
+
+	public void endGame(){
+		dialogueManager.GetComponent<DialogueScriptManager> ().collidedWithBoss ();
+	}
+
+
 	void OnTriggerEnter2D(Collider2D col){
 
-		if (col.gameObject.tag == "Enemy") {
+		if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "lobo") {
 
 			hit = true;
-
-
 			//Calcular vetor oposto à colisao para fazer knockback
 			Vector2 normal = ( gameObject.transform.position - col.gameObject.transform.position).normalized;
 			Rb2D.velocity = new Vector2 (0,0);
 			Rb2D.AddForce (normal * 1500);
 		}
 
-		if (col.gameObject.tag == "Portal") {
-			
+		if (col.gameObject.tag == "old") {
+			dialogueManager.GetComponent<DialogueScriptManager> ().collidedWithOldMan ();
+			col.gameObject.GetComponent<BoxCollider2D> ().enabled = false;
 		}
+
+		if (col.gameObject.tag == "b1") {
+			dialogueManager.GetComponent<DialogueScriptManager> ().collidedWithArea1 ();
+			col.gameObject.GetComponent<BoxCollider2D> ().enabled = false;
+		}
+
+		if (col.gameObject.tag == "t1") {
+			dialogueManager.GetComponent<DialogueScriptManager> ().collidedWithTransition1 ();
+			col.gameObject.GetComponent<BoxCollider2D> ().enabled = false;
+		}
+
+		if (col.gameObject.tag == "b2") {
+			dialogueManager.GetComponent<DialogueScriptManager> ().collidedWithArea2 ();
+			col.gameObject.GetComponent<BoxCollider2D> ().enabled = false;
+		}
+
+		if (col.gameObject.tag == "b3") {
+			dialogueManager.GetComponent<DialogueScriptManager> ().collidedWithTransition2 ();
+			col.gameObject.GetComponent<BoxCollider2D> ().enabled = false;
+		}
+
+
+
+
 	
 	}
 

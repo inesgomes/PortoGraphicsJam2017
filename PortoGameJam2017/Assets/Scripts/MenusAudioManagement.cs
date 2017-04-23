@@ -5,12 +5,9 @@ using UnityEngine.SceneManagement;
 public class MenusAudioManagement: MonoBehaviour
 {
 
-    void Start()
+    void Awaken()
     {
-        GameObject[] obj = GameObject.FindGameObjectsWithTag("music");
-
-        if (obj.Length == 0 || obj.Length > 1)
-            Destroy(this.gameObject);
+		GameObject.FindGameObjectWithTag ("music").GetComponent<AudioSource> ().Play ();
 
         DontDestroyOnLoad(this.gameObject);
     }
