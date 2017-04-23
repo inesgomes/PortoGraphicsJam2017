@@ -34,6 +34,10 @@ public class PlayerController2D : MonoBehaviour
 	public int currHP;
 	public Sprite[] sprites;
 	public Image image;
+	public Image image0;
+	public Image image1;
+	public Image image2;
+
 	public bool hit;
 
 	//knockback
@@ -45,9 +49,16 @@ public class PlayerController2D : MonoBehaviour
 	//Audio
 	GamePlayAudioManagement audioManager;
 
+	//current level
+	public bool[] currentLevels;
+
 	// Use this for initialization
 	void Start ()
 	{
+
+		sprites = new Sprite[3];
+		currentLevels = new bool[]
+		{ true, false, false, false, false, false};
 
 		audioManager = GameObject.FindGameObjectWithTag ("audio").GetComponent<GamePlayAudioManagement> ();
 
@@ -58,6 +69,10 @@ public class PlayerController2D : MonoBehaviour
 		anim = GetComponent<Animator> (); 
 
 		attack_vector = new BoxCollider2D[4];
+
+		sprites [0] = image0.sprite;
+		sprites [1] = image1.sprite;
+		sprites [2] = image2.sprite;
 
 		attack_vector [0] = right_attack;
 		attack_vector [1] = left_attack;
@@ -73,12 +88,7 @@ public class PlayerController2D : MonoBehaviour
 		knock_back_delay = .5f;
 		knock_back_time = .5f;
 
-
-
-
 		hit = false;
-
-
 
 	}
 	
@@ -94,6 +104,21 @@ public class PlayerController2D : MonoBehaviour
 		manageSpeed ();
 		manageAttack ();
 
+	}
+
+	public int getCurrentLevel(){
+
+		int i;
+		int maxLevel = 0;
+		for (i = 0; i < currentLevels.Length; i++) {
+			
+			if (currentLevels [i]) {
+				maxLevel = i;
+			}
+
+		}
+
+		return maxLevel;
 	}
 
 	// Handler speed
@@ -113,10 +138,6 @@ public class PlayerController2D : MonoBehaviour
 		}
 
 		knock_back_time -= Time.deltaTime;
-
-
-
-
 
 
 		if(knock_back_time <= 0){
@@ -241,8 +262,12 @@ public class PlayerController2D : MonoBehaviour
 
 			//Calcular vetor oposto à colisao para fazer knockback
 			Vector2 normal = ( gameObject.transform.position - col.gameObject.transform.position).normalized;
-
+			Rb2D.velocity = new Vector2 (0,0);
 			Rb2D.AddForce (normal * 700);
+		}
+
+		if (col.gameObject.tag == "Portal") {
+			
 		}
 	
 	}

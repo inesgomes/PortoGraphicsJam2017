@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TeleportToNextArea : MonoBehaviour {
+public class TeleportToNextArea4 : MonoBehaviour {
 
 
 	public BoxCollider2D thisPortal;
@@ -29,8 +29,13 @@ public class TeleportToNextArea : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D col){
 
-		if (col.gameObject.tag == "Player")
+		if (col.gameObject.tag == "Player") {
+
+			col.gameObject.GetComponent<PlayerController2D> ().currentLevels [5] = true;;
+
 			col.gameObject.transform.position = nextSpawnPoint;
+		}
+
 
 	}
 }
