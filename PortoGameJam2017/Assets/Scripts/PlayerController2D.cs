@@ -36,9 +36,20 @@ public class PlayerController2D : MonoBehaviour
 	public Image image;
 	public bool hit;
 
+	//knockback
+	public float knock_back_time;
+	public float knock_back_delay;
+
+	public float invincibility;
+
+
+
 	// Use this for initialization
 	void Start ()
 	{
+
+		invincibility = .0f;
+
 		dir = -1;
 		Rb2D = GetComponent<Rigidbody2D> ();
 		anim = GetComponent<Animator> (); 
@@ -56,15 +67,30 @@ public class PlayerController2D : MonoBehaviour
 		trigger_time = -1;
 		trigger_delay = 0.25f;
 
+		knock_back_delay = .5f;
+		knock_back_time = .5f;
+
+
+
+
 		hit = false;
+
+
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
+		
+
+		if(manageKnockback()){
+			return;
+		}
+
 		manageSpeed ();
 		manageAttack ();
-		manageHealth ();
+
 	}
 
 	// Handler speed
@@ -75,6 +101,43 @@ public class PlayerController2D : MonoBehaviour
 
 		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
 		anim.SetFloat ("Velocity", Rb2D.velocity.magnitude);
+	}
+
+	bool manageKnockback(){
+
+		if (!hit) {
+			return false;
+		}
+
+		knock_back_time -= Time.deltaTime;
+
+
+		Debug.Log (knock_back_time);
+
+		if(knock_back_time <= 0){
+
+			if(hit && currHP > 0)
+			{
+				hit = false;
+				currHP--;
+
+				if (currHP == 0)
+				{
+					Debug.Log ("I DIEDEDED");
+				}
+			}
+			
+			knock_back_time = knock_back_delay;
+			hit = false;
+
+			image.sprite = sprites [currHP];
+
+
+
+			return false;
+		}
+
+		return true;
 	}
 
 	// Handler attack
@@ -117,23 +180,7 @@ public class PlayerController2D : MonoBehaviour
 			}
 		}
 	}
-
-	// Handler health
-	void manageHealth()
-	{
-		image.sprite = sprites [currHP];
-
-		if(hit && currHP > 0)
-		{
-			hit = false;
-			currHP--;
-
-			if (currHP == 0)
-			{
-				Debug.Log ("I DIEDEDED");
-			}
-		}
-	}
+		
 		
 	// Return the direction (0 direita, 1 esquerda, 2 cima, 3 baixo)
 	void updateDir()
@@ -183,4 +230,22 @@ public class PlayerController2D : MonoBehaviour
 			return "Error Parsing Direction";
 		}
 	}
+
+	void OnTriggerEnter2D(Collider2D col){
+
+		if (col.gameObject.tag == "Enemy") {
+
+			hit = true;
+
+
+			//Calcular vetor oposto à colisao para fazer knockback
+			Vector2 normal = ( gameObject.transform.position - col.gameObject.transform.position).normalized;
+
+			Rb2D.AddForce (normal * 700);
+		}
+	
+	}
+
+
+
 }
