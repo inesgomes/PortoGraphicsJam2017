@@ -102,7 +102,7 @@ public class PlayerController2D : MonoBehaviour
 		x_axis = Input.GetAxisRaw ("Horizontal");
 		y_axis = Input.GetAxisRaw ("Vertical");
 
-		Rb2D.velocity = new Vector2 (x_axis, y_axis) * velocity;
+		Rb2D.velocity = new Vector2 (x_axis, y_axis) * 12;
 		anim.SetFloat ("Velocity", Rb2D.velocity.magnitude);
 	}
 
