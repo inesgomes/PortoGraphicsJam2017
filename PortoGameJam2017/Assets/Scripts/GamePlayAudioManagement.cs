@@ -113,7 +113,7 @@ public class GamePlayAudioManagement : MonoBehaviour
     }
 
     /*
-     * Instantaneous Musics
+     * Instantaneous Sounds
      */
 
     public void playMonsterDieMusic()

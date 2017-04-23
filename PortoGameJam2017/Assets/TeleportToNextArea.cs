@@ -11,9 +11,13 @@ public class TeleportToNextArea : MonoBehaviour {
 
 	Vector2 nextSpawnPoint;
 
+	//Audio
+	GamePlayAudioManagement audioManager;
 
 	void Start () {
 	
+		audioManager = GameObject.FindGameObjectWithTag ("audio").GetComponent<GamePlayAudioManagement> ();
+		audioManager.playPortalMusic();
 		nextSpawnPoint = nextSpawn.transform.position;
 		
 	}

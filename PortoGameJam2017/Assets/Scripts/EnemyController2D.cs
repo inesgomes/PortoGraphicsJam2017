@@ -32,10 +32,12 @@ public class EnemyController2D : MonoBehaviour
 
 	SpriteRenderer renderer;
 
+	GamePlayAudioManagement audioManager;
+
 	// Use this for initialization
 	void Start ()
 	{
-
+		audioManager = GameObject.FindGameObjectWithTag ("audio").GetComponent<GamePlayAudioManagement> ();
 		Color[] colors = new Color[] 
 		{	
 			new Color(0, 0, 0, 1),
@@ -93,6 +95,7 @@ public class EnemyController2D : MonoBehaviour
 
 	void WasAttackedByPlayer()
 	{
+		audioManager.playMonsterDieMusic ();
 		Destroy (gameObject);
 	}
 }

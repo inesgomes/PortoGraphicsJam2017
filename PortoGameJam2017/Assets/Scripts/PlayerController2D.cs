@@ -42,11 +42,14 @@ public class PlayerController2D : MonoBehaviour
 
 	public float invincibility;
 
-
+	//Audio
+	GamePlayAudioManagement audioManager;
 
 	// Use this for initialization
 	void Start ()
 	{
+
+		audioManager = GameObject.FindGameObjectWithTag ("audio").GetComponent<GamePlayAudioManagement> ();
 
 		invincibility = .0f;
 
