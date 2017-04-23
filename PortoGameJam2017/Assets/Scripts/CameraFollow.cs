@@ -25,7 +25,6 @@ public class CameraFollow : MonoBehaviour
 	void Update ()
 	{
 		current_level = target.GetComponent<PlayerController2D> ().getCurrentLevel ();
-		Debug.Log (current_level);
 
 		float minY = first_bot + 150 * current_level;
 		float maxY = first_top + 150 * current_level;

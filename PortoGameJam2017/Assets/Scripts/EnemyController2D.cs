@@ -30,6 +30,8 @@ public class EnemyController2D : MonoBehaviour
 	public float velocity;
 	public float minDist;
 
+	public Animator animator;
+
 	SpriteRenderer renderer;
 
 	GamePlayAudioManagement audioManager;
@@ -37,6 +39,11 @@ public class EnemyController2D : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+
+		if (gameObject.tag == "lobo") {
+			animator = GetComponent<Animator> ();
+		}
+
 		audioManager = GameObject.FindGameObjectWithTag ("audio").GetComponent<GamePlayAudioManagement> ();
 		Color[] colors = new Color[] 
 		{	
@@ -56,9 +63,11 @@ public class EnemyController2D : MonoBehaviour
 
 
 
-		renderer.color = new Color ((float)Random.Range(0,99)/100, 
-									(float)Random.Range(0,99)/100, 
-									(float)Random.Range(0,99)/100, 1);
+		if (gameObject.tag == "Enemy") {
+			renderer.color = new Color ((float)Random.Range(0,99)/100, 
+				(float)Random.Range(0,99)/100, 
+				(float)Random.Range(0,99)/100, 1);
+		}
 
 
 		renderer.enabled = true;
@@ -74,6 +83,16 @@ public class EnemyController2D : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
 	{
+
+		if(gameObject.tag == "lobo"){
+			animator.SetFloat ("velocity", Rb2D.velocity.magnitude);
+
+			Debug.Log (Mathf.Sqrt(Mathf.Pow(Rb2D.velocity.x, 2) + Mathf.Pow(Rb2D.velocity.y, 2)));
+			animator.SetFloat ("x", Rb2D.velocity.x);
+			animator.SetFloat ("y", Rb2D.velocity.y);
+			
+		}
+
 		float distance = Vector3.Distance (transform.position, player_transform.position);
 
 		if (distance <= engageRange && distance > minDist)

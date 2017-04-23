@@ -17,8 +17,6 @@ public class TeleportToNextArea4 : MonoBehaviour {
 	void Start () {
 	
 		audioManager = GameObject.FindGameObjectWithTag ("audio").GetComponent<GamePlayAudioManagement> ();
-		audioManager.playPortalMusic();
-
 		nextSpawnPoint = nextSpawn.transform.position;
 		
 	}
@@ -35,6 +33,8 @@ public class TeleportToNextArea4 : MonoBehaviour {
 			col.gameObject.GetComponent<PlayerController2D> ().currentLevels [5] = true;;
 
 			col.gameObject.transform.position = nextSpawnPoint;
+
+			audioManager.playPortalMusic();
 		}
 
 

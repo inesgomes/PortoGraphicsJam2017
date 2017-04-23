@@ -48,8 +48,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 		AudioSource audio = ((GameObject)sounds["sadMusic"]).GetComponent<AudioSource>();
 		if (audio != current_background)
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 5.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 5.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 4.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 4.0f));
 			current_background = audio;
 		}
 	}
@@ -60,7 +60,7 @@ public class GamePlayAudioManagement : MonoBehaviour
 		if(audio != current_background)
 		{
 			StartCoroutine(AudioEffects.fadeOut(current_background,5.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 5.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 8.0f));
 			current_background = audio;
 		}
 	}
@@ -70,8 +70,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 		AudioSource audio = ((GameObject)sounds["ambientMusic"]).GetComponent<AudioSource>();
 		if (audio != current_background)
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 5.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 5.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 6.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 2.0f));
 			current_background = audio;
 		}
 	}
@@ -81,8 +81,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 		AudioSource audio = ((GameObject)sounds["bossMusic"]).GetComponent<AudioSource>();
 		if (audio != current_background)
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 5.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 5.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 8.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 8.0f));
 			current_background = audio;
 		}
 	}

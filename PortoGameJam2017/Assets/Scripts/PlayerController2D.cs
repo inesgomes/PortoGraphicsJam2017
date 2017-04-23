@@ -157,10 +157,10 @@ public class PlayerController2D : MonoBehaviour
 				image.sprite = sprites [currHP];
 
 				//audio
-				if (currHP <= 2)
+				/*if (currHP <= 2)
 					audioManager.playSadMusic ();
 				else
-					audioManager.playAmbientMusic ();
+					audioManager.playAmbientMusic ();*/
 
 				if (currHP == 0)
 				{
@@ -282,7 +282,7 @@ public class PlayerController2D : MonoBehaviour
 			//Calcular vetor oposto à colisao para fazer knockback
 			Vector2 normal = ( gameObject.transform.position - col.gameObject.transform.position).normalized;
 			Rb2D.velocity = new Vector2 (0,0);
-			Rb2D.AddForce (normal * 700);
+			Rb2D.AddForce (normal * 1500);
 		}
 
 		if (col.gameObject.tag == "Portal") {
