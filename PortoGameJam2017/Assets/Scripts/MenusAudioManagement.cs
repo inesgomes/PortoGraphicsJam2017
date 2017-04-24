@@ -5,9 +5,17 @@ using UnityEngine.SceneManagement;
 public class MenusAudioManagement: MonoBehaviour
 {
 
-    void Awaken()
+    AudioSource audio;
+
+    void Awake()
     {
-		GameObject.FindGameObjectWithTag ("music").GetComponent<AudioSource> ().Play ();
+        if (GameObject.FindGameObjectsWithTag("music").Length > 1)
+            Destroy(this.gameObject);
+
+
+        audio = GameObject.FindGameObjectWithTag("music").GetComponent<AudioSource>();
+        if (!audio.isPlaying)
+            audio.Play();
 
         DontDestroyOnLoad(this.gameObject);
     }
@@ -18,7 +26,7 @@ public class MenusAudioManagement: MonoBehaviour
 
         if (!(scene_name.CompareTo("gameMenu") == 0 || scene_name.CompareTo("creditsMenu") == 0 ||
             scene_name.CompareTo("storyMenu") == 0))
-            Destroy(this.gameObject);
+            audio.Stop();
     }
    
 }

@@ -37,6 +37,7 @@ public class TeleportToNextArea : MonoBehaviour {
 			col.gameObject.transform.position = nextSpawnPoint;
 
 			audioManager.playPortalMusic();
+            audioManager.playAmbientMusic();
 		}
 
 

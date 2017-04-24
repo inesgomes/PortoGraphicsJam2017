@@ -46,7 +46,7 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void playSadMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["sadMusic"]).GetComponent<AudioSource>();
-		if (audio != current_background)
+		if (audio != current_background && audio != null)
 		{
 			StartCoroutine (AudioEffects.fadeOut (current_background, 4.0f));
 			StartCoroutine (AudioEffects.fadeIn (audio, 4.0f));
@@ -57,10 +57,10 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void playFightMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["fightMusic"]).GetComponent<AudioSource>();
-		if(audio != current_background)
+		if(audio != current_background && audio != null)
 		{
-			StartCoroutine(AudioEffects.fadeOut(current_background,5.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 8.0f));
+			StartCoroutine(AudioEffects.fadeOut(current_background,6.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 6.0f));
 			current_background = audio;
 		}
 	}
@@ -68,10 +68,10 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void playAmbientMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["ambientMusic"]).GetComponent<AudioSource>();
-		if (audio != current_background)
+		if (audio != current_background && audio != null)
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 6.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 2.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 4.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 4.0f));
 			current_background = audio;
 		}
 	}
@@ -79,10 +79,10 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void playBossMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["bossMusic"]).GetComponent<AudioSource>();
-		if (audio != current_background)
+		if (audio != current_background && audio != null ) 
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 8.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 8.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 4.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 4.0f));
 			current_background = audio;
 		}
 	}
@@ -93,7 +93,7 @@ public class GamePlayAudioManagement : MonoBehaviour
 	{
 		AudioSource audio = ((GameObject)sounds["winMusic"]).GetComponent<AudioSource>();
 
-		if (audio != current_background)
+		if (audio != current_background && audio != null)
 		{
 			StartCoroutine (AudioEffects.fadeOut (current_background, 5.0f));
 			StartCoroutine (AudioEffects.fadeIn (audio, 5.0f));
@@ -108,7 +108,7 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void playMonsterDieMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["monsterDieMusic"]).GetComponent<AudioSource>();
-		if (audio.isPlaying)
+		if (audio.isPlaying && audio != null)
 			audio.Stop();
 
 		audio.Play();
@@ -118,14 +118,14 @@ public class GamePlayAudioManagement : MonoBehaviour
 	{
 		AudioSource audio = ((GameObject)sounds["portalMusic"]).GetComponent<AudioSource>();
 
-		playAmbientMusic ();
-		audio.Play();
+        if(audio != null)
+		    audio.Play();
 	}
 
 	public void playPunchMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["punchMusic"]).GetComponent<AudioSource>();
-		if (audio.isPlaying)
+		if (audio.isPlaying && audio != null)
 			audio.Stop();
 
 		audio.Play();
@@ -134,7 +134,7 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void playMissPunchMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["missPunchMusic"]).GetComponent<AudioSource>();
-		if (audio.isPlaying)
+		if (audio.isPlaying && audio != null)
 			audio.Stop();
 
 		audio.Play();
@@ -143,7 +143,7 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void playRunMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["runMusic"]).GetComponent<AudioSource>();
-		if (!audio.isPlaying)
+		if (!audio.isPlaying && audio != null)
 		{
 			audio.Play();
 		}
@@ -152,6 +152,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 	public void stopRunMusic()
 	{
 		AudioSource audio = ((GameObject)sounds["runMusic"]).GetComponent<AudioSource>();
-		audio.Stop();
+
+        if(audio != null)
+		    audio.Stop();
 	}
 }
