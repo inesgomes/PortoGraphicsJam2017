@@ -48,8 +48,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 		AudioSource audio = ((GameObject)sounds["sadMusic"]).GetComponent<AudioSource>();
 		if (audio != current_background && audio != null)
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 4.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 4.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 3.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 3.0f));
 			current_background = audio;
 		}
 	}
@@ -59,8 +59,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 		AudioSource audio = ((GameObject)sounds["fightMusic"]).GetComponent<AudioSource>();
 		if(audio != current_background && audio != null)
 		{
-			StartCoroutine(AudioEffects.fadeOut(current_background,6.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 6.0f));
+			StartCoroutine(AudioEffects.fadeOut(current_background,3.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 3.0f));
 			current_background = audio;
 		}
 	}
@@ -70,8 +70,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 		AudioSource audio = ((GameObject)sounds["ambientMusic"]).GetComponent<AudioSource>();
 		if (audio != current_background && audio != null)
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 4.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 4.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 3.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 3.0f));
 			current_background = audio;
 		}
 	}
@@ -81,8 +81,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 		AudioSource audio = ((GameObject)sounds["bossMusic"]).GetComponent<AudioSource>();
 		if (audio != current_background && audio != null ) 
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 4.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 4.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 3.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 3.0f));
 			current_background = audio;
 		}
 	}
@@ -95,8 +95,8 @@ public class GamePlayAudioManagement : MonoBehaviour
 
 		if (audio != current_background && audio != null)
 		{
-			StartCoroutine (AudioEffects.fadeOut (current_background, 5.0f));
-			StartCoroutine (AudioEffects.fadeIn (audio, 5.0f));
+			StartCoroutine (AudioEffects.fadeOut (current_background, 3.0f));
+			StartCoroutine (AudioEffects.fadeIn (audio, 3.0f));
 			current_background = audio;
 		}
 	}
